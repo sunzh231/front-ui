@@ -23,6 +23,33 @@ module.exports = function(grunt) {
         }
       }
     },
+    cssc: {
+      build: {
+        options: {
+          consolidateViaDeclarations: true,
+          consolidateViaSelectors:    true,
+          consolidateMediaQueries:    true
+        },
+        files: {
+          'build/css/master.css': 'build/css/master.css'
+        }
+      }
+    },
+
+    cssmin: {
+        build: {
+            src: 'build/css/master.css',
+            dest: 'build/css/master.css'
+        }
+    },
+
+    sass: {
+        build: {
+            files: {
+                'build/css/master.css': 'assets/sass/master.scss'
+            }
+        }
+    },
     // Task configuration.
     concat: {
       options: {
@@ -65,7 +92,7 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
+        src: ['assets/lib/**/*.js', 'test/**/*.js']
       }
     },
     qunit: {
@@ -79,6 +106,10 @@ module.exports = function(grunt) {
       lib_test: {
         files: '<%= jshint.lib_test.src %>',
         tasks: ['jshint:lib_test', 'qunit']
+      },
+      css: {
+        files: ['app/styles/**/*.scss'],
+        tasks: ['buildcss']
       }
     }
   });
@@ -93,5 +124,6 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+  grunt.registerTask('buildcss',  ['sass', 'cssc', 'cssmin']);
 
 };
