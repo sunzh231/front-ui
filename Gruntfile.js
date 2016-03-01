@@ -10,6 +10,19 @@ module.exports = function(grunt) {
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+    clean: {
+        prebuild: ['assets/', 'preview/']
+    },
+    copy: {
+        main: {
+            files: [{
+                expand: true,
+                cwd: 'app/',
+                src: ['**'],
+                dest: 'preview/'
+            }]
+        }
+    },
     bower: {
       install: {
         options: {
@@ -23,51 +36,68 @@ module.exports = function(grunt) {
         }
       }
     },
-    cssc: {
-      build: {
+    sass: {
+      dist: {
         options: {
-          consolidateViaDeclarations: true,
-          consolidateViaSelectors:    true,
-          consolidateMediaQueries:    true
+          style: 'expanded'
         },
         files: {
-          'build/css/master.css': 'build/css/master.css'
+          'assets/lib/bootstrap-sass/bootstrap.css': 'assets/lib/bootstrap-sass/_bootstrap.scss',
+          'preview/styles/reset.css': 'app/styles/reset.scss',
+          'preview/styles/common.css': 'app/styles/common.scss',
+          'preview/styles/app.css': 'app/styles/app.scss'
         }
       }
     },
-
     cssmin: {
-        build: {
-            src: 'build/css/master.css',
-            dest: 'build/css/master.css'
+      build: {
+        files: {
+          'assets/dist/css/<%= pkg.name %>.min.css': [ 'preview/styles/**/*.css' ]
         }
+      }
     },
-
-    sass: {
-        build: {
-            files: {
-                'build/css/master.css': 'assets/sass/master.scss'
-            }
-        }
+    coffee: {
+      build: {
+        expand: true,
+        cwd: 'app/',
+        src: [ '**/*.coffee' ],
+        dest: 'preview/',
+        ext: '.js'
+      }
     },
-    // Task configuration.
     concat: {
       options: {
         banner: '<%= banner %>',
         stripBanners: true
       },
-      dist: {
-        src: ['lib/<%= pkg.name %>.js'],
-        dest: 'dist/<%= pkg.name %>.js'
+      router: {
+        src: ['preview/scripts/app.js'],
+        dest: 'assets/dist/js/app.js'
+      },
+      controller: {
+        src: ['preview/scripts/controllers/**/*.js'],
+        dest: 'assets/dist/js/controllers.js'
+      },
+      directive: {
+        src: ['preview/scripts/directives/**/*.js'],
+        dest: 'assets/dist/js/directives.js'
       }
     },
     uglify: {
       options: {
         banner: '<%= banner %>'
       },
-      dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'dist/<%= pkg.name %>.min.js'
+      router: {
+        src: ['<%= concat.router.dest %>'],
+        dest: 'assets/dist/js/app.min.js'
+      },
+      controller: {
+        src: ['<%= concat.controller.dest %>'],
+        dest: 'assets/dist/js/controllers.min.js'
+      },
+      directive: {
+        src: ['<%= concat.directive.dest %>'],
+        dest: 'assets/dist/js/directives.min.js'
       }
     },
     jshint: {
@@ -121,9 +151,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-cssc');
+
+  grunt.loadNpmTasks('grunt-contrib-coffee');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
-  grunt.registerTask('buildcss',  ['sass', 'cssc', 'cssmin']);
+  //grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+  grunt.registerTask('default', ['clean:prebuild', 'bower', 'sass', 'cssmin', 'coffee', 'concat', 'uglify']);
+  grunt.registerTask('buildcss', ['clean:prebuild', 'sass', 'cssmin']);
+  grunt.registerTask('buildjs', ['clean:prebuild', 'coffee', 'concat', 'uglify']);
 
 };
