@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="adminApp">
 <head>
     <title>UI Demo</title>
-    <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap-sass/_bootstrap.scss">
     <link rel="stylesheet" type="text/css" href="assets/dist/css/birdy.min.css">
 </head>
 <body>
     <div class="wrapper">
         Hello World!!
+        <header></header>
+        <aside></aside>
+        <div class="content-wrapper">
+            <section class="content-header"></section>
+            <div ng-view></div>
+        </div>
     </div>
     <script type="text/javascript" src="assets/lib/jquery/jquery.js" ></script>
+    <script type="text/javascript" src="assets/lib/bootstrap-sass/bootstrap.js" ></script>
     <script type="text/javascript" src="assets/lib/angular/angular.js" ></script>
     <script type="text/javascript" src="assets/lib/angular-route/angular-route.js" ></script>
     <script type="text/javascript" src="assets/dist/js/app.min.js"></script>

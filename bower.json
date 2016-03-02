@@ -22,6 +22,8 @@
     "angular": "angularjs#^1.5.0",
     "jquery": "^2.2.1",
     "bootstrap-sass": "bootstrap-sass-official#^3.3.6",
-    "angular-route": "^1.5.0"
+    "angular-route": "^1.5.0",
+    "w5c-validator": "angular-w5c-validator#^2.4.12",
+    "angular-resource": "^1.5.0"
   }
 }

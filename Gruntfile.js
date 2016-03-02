@@ -17,9 +17,9 @@ module.exports = function(grunt) {
         main: {
             files: [{
                 expand: true,
-                cwd: 'app/',
+                cwd: 'bower_components/bootstrap-sass/assets/stylesheets',
                 src: ['**'],
-                dest: 'preview/'
+                dest: 'assets/lib/bootstrap-sass'
             }]
         }
     },
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         options: {
           targetDir: './assets/lib',
           layout: 'byComponent',
-          install: true,
+          install: false,
           verbose: false,
           cleanTargetDir: false,
           cleanBowerDir: false,
@@ -78,6 +78,10 @@ module.exports = function(grunt) {
         src: ['preview/scripts/controllers/**/*.js'],
         dest: 'assets/dist/js/controllers.js'
       },
+      service: {
+        src: ['preview/scripts/services/**/*.js'],
+        dest: 'assets/dist/js/services.js'
+      },
       directive: {
         src: ['preview/scripts/directives/**/*.js'],
         dest: 'assets/dist/js/directives.js'
@@ -94,6 +98,10 @@ module.exports = function(grunt) {
       controller: {
         src: ['<%= concat.controller.dest %>'],
         dest: 'assets/dist/js/controllers.min.js'
+      },
+      service: {
+        src: ['<%= concat.service.dest %>'],
+        dest: 'assets/dist/js/services.min.js'
       },
       directive: {
         src: ['<%= concat.directive.dest %>'],
@@ -137,6 +145,10 @@ module.exports = function(grunt) {
         files: '<%= jshint.lib_test.src %>',
         tasks: ['jshint:lib_test', 'qunit']
       },
+      coffee: {
+        files: ['app/scripts/**/*.coffee'],
+        tasks: ['buildjs']
+      },
       css: {
         files: ['app/styles/**/*.scss'],
         tasks: ['buildcss']
@@ -162,8 +174,8 @@ module.exports = function(grunt) {
 
   // Default task.
   //grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
-  grunt.registerTask('default', ['clean:prebuild', 'bower', 'sass', 'cssmin', 'coffee', 'concat', 'uglify']);
-  grunt.registerTask('buildcss', ['clean:prebuild', 'sass', 'cssmin']);
-  grunt.registerTask('buildjs', ['clean:prebuild', 'coffee', 'concat', 'uglify']);
+  grunt.registerTask('default', ['clean:prebuild', 'bower','copy', 'sass', 'cssmin', 'coffee', 'concat', 'uglify']);
+  grunt.registerTask('buildcss', ['sass', 'cssmin']);
+  grunt.registerTask('buildjs', ['coffee', 'concat', 'uglify']);
 
 };

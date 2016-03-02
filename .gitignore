@@ -1,0 +1,10 @@
+Thumbs.db
+.idea/
+*.DS_Store
+
+/node_modules
+/bower_components
+/preview
+/assets
+/.tmp
+/.sass-cache
