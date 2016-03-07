@@ -13,7 +13,7 @@ this.adminApp.directive 'pageTable', [
       restrict: 'E, A, C'
       link: (scope, element, attrs, controller) ->
         # apply DataTable options, use defaults if none specified by admin
-        options = 
+        options =
           'iCookieDuration': 2419200
           'bJQueryUI': true
           'bPaginate': true
@@ -35,7 +35,7 @@ this.adminApp.directive 'pageTable', [
         explicitColumns = []
         element.find('th').each (index, elem) ->
           if $(elem).attr('field')
-            colInfo = 
+            colInfo =
               'mData': $(elem).attr('field')
               'bSortable': true
             explicitColumns.push colInfo
