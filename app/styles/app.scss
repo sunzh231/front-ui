@@ -1,7 +1,3 @@
-.wrapper {
-    header {
-        width: 100%;
-        height: 200px;
-        background-color: #050607;
-    }
-}
+@import 'bootstrap-sass/bootstrap';
+@import 'reset';
+@import 'common'

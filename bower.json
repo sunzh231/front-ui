@@ -24,6 +24,9 @@
     "bootstrap-sass": "bootstrap-sass-official#^3.3.6",
     "angular-route": "^1.5.0",
     "w5c-validator": "angular-w5c-validator#^2.4.12",
-    "angular-resource": "^1.5.0"
+    "angular-resource": "^1.5.0",
+    "datatables.net": "^1.10.11",
+    "datatables.net-dt": "^1.10.11",
+    "select2": "^4.0.2"
   }
 }

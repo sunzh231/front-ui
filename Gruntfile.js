@@ -19,7 +19,15 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'bower_components/bootstrap-sass/assets/stylesheets',
                 src: ['**'],
-                dest: 'assets/lib/bootstrap-sass'
+                dest: 'app/styles/bootstrap-sass'
+            }]
+        },
+        view: {
+            files: [{
+                expand: true,
+                cwd: 'app/views',
+                src: ['**'],
+                dest: 'assets/views'
             }]
         }
     },
@@ -42,9 +50,6 @@ module.exports = function(grunt) {
           style: 'expanded'
         },
         files: {
-          'assets/lib/bootstrap-sass/bootstrap.css': 'assets/lib/bootstrap-sass/_bootstrap.scss',
-          'preview/styles/reset.css': 'app/styles/reset.scss',
-          'preview/styles/common.css': 'app/styles/common.scss',
           'preview/styles/app.css': 'app/styles/app.scss'
         }
       }

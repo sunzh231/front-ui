@@ -2,24 +2,75 @@
 <html ng-app="adminApp">
 <head>
     <title>UI Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="assets/lib/datatables.net-dt/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="assets/dist/css/birdy.min.css">
 </head>
 <body>
     <div class="wrapper">
-        Hello World!!
-        <header></header>
-        <aside></aside>
-        <div class="content-wrapper">
-            <section class="content-header"></section>
-            <div ng-view></div>
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">SCRM DEMO</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Help</a></li>
+                  </ul>
+                  <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                  </form>
+                </div>
+              </div>
+            </nav>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <aside>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active"><a ng-href="#/dashboard">Dashboard <span class="sr-only">(current)</span></a></li>
+                            <li><a ng-href="#/user/list">user list</a></li>
+                            <li><a ng-href="#">Analytics</a></li>
+                            <li><a ng-href="#">Export</a></li>
+                        </ul>
+                    </aside>
+                </div>
+                <div class="col-sm-9 col-md-10">
+                    <section>
+                        <ol class="breadcrumb">
+                          <li><a href="#">Home</a></li>
+                          <li><a href="#">Library</a></li>
+                          <li class="active">Data</li>
+                        </ol>
+                    </section>
+                    <div ng-view></div>
+                </div>
+            </div>
         </div>
     </div>
+
     <script type="text/javascript" src="assets/lib/jquery/jquery.js" ></script>
     <script type="text/javascript" src="assets/lib/bootstrap-sass/bootstrap.js" ></script>
+    <script type="text/javascript" src="assets/lib/datatables.net/jquery.dataTables.js" ></script>
+    <script type="text/javascript" src="assets/lib/select2/select2.js" ></script>
     <script type="text/javascript" src="assets/lib/angular/angular.js" ></script>
     <script type="text/javascript" src="assets/lib/angular-route/angular-route.js" ></script>
-    <script type="text/javascript" src="assets/dist/js/app.min.js"></script>
-    <script type="text/javascript" src="assets/dist/js/controllers.min.js"></script>
-    <script type="text/javascript" src="assets/dist/js/directives.min.js"></script>
+    <script type="text/javascript" src="assets/lib/angular-resource/angular-resource.js" ></script>
+    <script type="text/javascript" src="assets/dist/js/app.js"></script>
+    <script type="text/javascript" src="assets/dist/js/controllers.js"></script>
+    <script type="text/javascript" src="assets/dist/js/services.js"></script>
+    <script type="text/javascript" src="assets/dist/js/directives.js"></script>
 </body>
 </html>

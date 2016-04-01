@@ -71,50 +71,36 @@ this.adminApp.service 'CrudService', [
     service
 ]
 
-### 用户管理相关service ###
 
-this.adminApp.service 'UserService', [
-  '$rootScope'
-  '$http'
-  ($rootScope, $http) ->
+this.adminApp.factory 'BaseService', ($http, $injector) ->
+  'use strict'
+
+  $http.get('/api').then (->
+    $injector.get 'ApiService'
+  ), ->
+    $injector.get 'LocalService'
+
+
+### BaseService ###
+
+this.adminApp.factory 'ApiService', [
+  '$resource'
+  ($resource) ->
+
     service =
-      listParents: (type) ->
-        $http.post('/user/parent/' + type).success (data) ->
-          if data
-            #$rootScope.$broadcast('parent.got', data);
-            $rootScope.parents = data
-          return
-        return
-      listHierarchy: ->
-        $http.post('/user/hierarchy').success (data) ->
-          $rootScope.$broadcast 'treeData.got', data
-          return
-        return
-      checkExisted: (userId) ->
-        $http.post('/user/' + userId).success (data) ->
-          if data.success
-            if data.data != null
-              alert '该用户ID已存在，请改用其他名称'
-            else
-              alert '该用户ID可以使用！'
-          else
-            alert data.data
-          return
-        return
-    service
+      entity: $resource 'http://localhost:8080/users/:userId', userId:'@id'
+      get: ->
+        service.entity.query (resp) ->
+
+
 ]
 
-### 权限认证相关操作 ###
+### LocalService ###
 
-this.adminApp.service 'CheckService', [
-  '$rootScope'
-  '$http'
-  ($rootScope, $http) ->
-    service = check: ->
-      $http.post('/authenticate').success (data) ->
-        if data
-          $rootScope.$broadcast 'authenticated', data
-        return
-      return
-    service
+this.adminApp.factory 'LocalService', [
+  '$resource'
+  ($resource) ->
+    $resource('/usrs/:userId',
+    userId: '@id',
+    charge: method: 'POST', params: {charge: true}, isArray: false)
 ]

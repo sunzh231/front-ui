@@ -2,10 +2,6 @@
 
 ### Directives ###
 
-###
-# 分页列表directive,整合了datatables控件
-###
-
 this.adminApp.directive 'pageTable', [
   '$location'
   ($location) ->
@@ -13,7 +9,7 @@ this.adminApp.directive 'pageTable', [
       restrict: 'E, A, C'
       link: (scope, element, attrs, controller) ->
         # apply DataTable options, use defaults if none specified by admin
-        options =
+        options = 
           'iCookieDuration': 2419200
           'bJQueryUI': true
           'bPaginate': true
@@ -35,7 +31,7 @@ this.adminApp.directive 'pageTable', [
         explicitColumns = []
         element.find('th').each (index, elem) ->
           if $(elem).attr('field')
-            colInfo =
+            colInfo = 
               'mData': $(elem).attr('field')
               'bSortable': true
             explicitColumns.push colInfo
@@ -56,8 +52,8 @@ this.adminApp.directive 'pageTable', [
         # apply the plugin
         #var dataTable = element.dataTable(options);
         dataTable = element.DataTable(options)
-        $('.remove-btn').die 'click'
-        $('.remove-btn').live 'click', ->
+        $('.remove-btn').off 'click'
+        $('.remove-btn').on 'click', ->
           id = $(this).attr('attr')
           trNode = @parentNode.parentNode
           scope.remove id, ->
@@ -100,19 +96,16 @@ this.adminApp.directive 'pageTable', [
     }
 ]
 
-###*
-# 下拉列表美化指令，采用select2控件实现
-###
-
 
 this.adminApp.directive 'select2', ->
-  {
+{
     restrict: 'E, A, C'
     link: ->
       $('select').select2()
       return
 
-  }
+}
+
 
 this.adminApp.directive 'hasPermission', (permissions) ->
   { link: (scope, element, attrs) ->
@@ -140,7 +133,6 @@ this.adminApp.directive 'hasPermission', (permissions) ->
 # 上传按钮
 # 主要完成整合jquery file upload控件实现相应的操作
 ###
-
 
 this.adminApp.directive 'fileuploadBtn', [
   '$location'
@@ -185,13 +177,13 @@ this.adminApp.directive 'fileuploadBtn', [
             $('tr:has(td)').remove()
 
             ###  $.each(data.result, function (index, file) {
-                 console.log(file);
+               console.log(file);
 
               });
             ###
 
             ### if($('#img-preview') == undefined){
-                 return ;
+               return ;
              }
 
              $('#img-preview').empty();
@@ -239,14 +231,9 @@ this.adminApp.directive 'fileuploadBtn', [
     }
 ]
 
-###
-# ckedit文本编辑
-#
-###
-
 
 this.adminApp.directive 'ckeditor', ->
-  {
+{
     require: '?ngModel'
     link: (scope, element, attrs, ngModel) ->
       ckeditor = CKEDITOR.replace(element[0], {})
@@ -267,16 +254,11 @@ this.adminApp.directive 'ckeditor', ->
 
       return
 
-  }
-
-###
-# 菜单链接按钮，主要实现菜单点击后的样式激活操作
-# 该指令使用与<li>下的<a>标签中
-###
+}
 
 
 this.adminApp.directive 'menuLink', ->
-  {
+{
     restrict: 'A'
     link: (scope, element) ->
       $(element).click ->
@@ -290,16 +272,11 @@ this.adminApp.directive 'menuLink', ->
         return
       return
 
-  }
-
-###
-#
-#
-###
+}
 
 
 this.adminApp.directive 'tabLink', ->
-  {
+{
     restrict: 'A'
     link: (scope, element, attrs) ->
       $(element).click ->
@@ -311,10 +288,9 @@ this.adminApp.directive 'tabLink', ->
         return
       return
 
-  }
-
+}
 this.adminApp.directive 'bsPopup', ($parse) ->
-  {
+{
     require: 'ngModel'
     restrict: 'A'
     link: (scope, elem, attrs, ctrl) ->
@@ -330,9 +306,5 @@ this.adminApp.directive 'bsPopup', ($parse) ->
         return
       return
 
-  }
+}
 
-return
-
-    }
-]
